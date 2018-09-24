@@ -14,14 +14,14 @@ const log = message => {
 };
 
 client.on("ready", () => {
-  client.user.setGame(prefix + "yardım | Güncellemelerden Bot Bazen Çevirim Dışı Ola Bilir! | ClawBot.tk") 
-  console.log("Bağlandım!")   
+  client.user.setStatus('')
+client.user.setGame(';yardım | ;davet | ;bilgi', 'https://twictch.tv/srk4n')
 });
 
 bot.on('guildMemberAdd', member => {
-  const channel = member.guild.channels.find('name', 'hosgeldiniz-log');
+  const channel = member.guild.channels.find('name', 'giris-cikis');
   if (!channel) return;
-  if(!channel) return message.channel.send(" `hosgeldiniz-log` İsminde Yazı Kanalı Bulamıyorum.!");
+  if(!channel) return message.channel.send(" `giriş` İsminde Yazı Kanalı Bulamıyorum.!");
   
   channel.send(`Sunucuya hoşgeldiniz, ${member}`);
   const sunucubilgi = new Discord.RichEmbed()
@@ -32,6 +32,80 @@ bot.on('guildMemberAdd', member => {
   .setImage(`http://clawbot.tk/img/hg.png`)
   return message.channel.sendEmbed(sunucubilgi);
 });
+client.on("message", msg => {
+   const link = [".com", ".net", ".xyz", ".tk", ".pw", ".io", ".me", ".gg", "www.", "https", "http", ".gl", ".org", ".com.tr", ".biz", "net", ".rf.gd", ".az", ".party"];
+        if (link.some(word => msg.content.includes(word))) {
+          try {
+             if (!msg.member.hasPermission("BAN_MEMBERS")) {
+                  msg.delete();
+
+                  return msg.reply('Reklam yapmamalısın! :warning:').then(msg => msg.delete(3000));
+             }
+          } catch(err) {
+            console.log(err);
+          }
+        }
+    });
+
+client.elevation = message => {
+  if(!message.guild) {
+	return; }
+  let permlvl = 0;
+  if (message.member.hasPermission("BAN_MEMBERS")) permlvl = 2;
+  if (message.member.hasPermission("ADMINISTRATOR")) permlvl = 3;
+  if (message.author.id === ayarlar.sahip) permlvl = 4;
+  return permlvl;
+};
+
+var regToken = /[\w\d]{24}\.[\w\d]{6}\.[\w\d-_]{27}/g;
+// client.on('debug', e => {
+//   console.log(chalk.bgBlue.green(e.replace(regToken, 'that was redacted')));
+// });
+client.on("ready", async message => {
+  var Activity = [
+      
+      
+      "Yapımcım : KralTakipte#0682",
+    
+      "Yapımcım : SRK4N | TeenHost ☍ $β#8469",
+    
+      "Yeni Eşsiz Özellikler",
+      
+      ">>> TeenBot Türk Botu <<<",
+
+      ";yardım | ;davet | ;reklamtara",
+    
+      "TeenBot Türkce Discord Botu",
+
+      ` ${client.guilds.size} Sunucu İçin | Teşekürler..`,
+    
+      `  ${client.users.size} Kulanıcı İçin | Teşekürler..`,
+
+  ];
+
+  setInterval(function() {
+
+      var random = Math.floor(Math.random()*(Activity.length-0+1)+0);
+
+      client.user.setActivity(Activity[random], { type: 'WATCHING' });
+      }, 6 * 3000);
+})
+
+
+client.on("message", msg => {
+        const kufur = ["oç", "amk", "ananı sikiyim", "ananıskm", "piç", "amk", "amsk", "sikim", "sikiyim", "orospu çocuğu", "piç kurusu", "kahpe", "orospu", "mal", "sik", "yarrak", "amcık", "amık", "yarram", "sikimi ye", "mk", "mq", "aq", "ak", "amq",];
+        if (kufur.some(word => msg.content.includes(word))) {
+          try {
+             if (!msg.member.hasPermission("BAN_MEMBERS")) {
+                  msg.delete();
+                  permission:5;
+o                  return msg.reply('Küfür etmemelisin! :warning:').then(msg => msg.delete(3000));
+             }
+          } catch(err) {
+            console.log(err);
+          }
+        }
+    });
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -99,11 +173,7 @@ client.unload = command => {
   });
 };
 
-client.on('message', msg => {
-  if (msg.content.toLowerCase() === 'sa', 'Sa', 'SA', 'sA') {
-    msg.channel.send('Aleyküm Selam,  Hoş Geldin');
-  }
-});
+
 
 client.elevation = message => {
   if(!message.guild) {
@@ -128,4 +198,4 @@ client.on('error', e => {
   console.log(chalk.bgRed(e.replace(regToken, 'that was redacted')));
 });
 
-client.login(process.env.BOT_TOKEN);
+client.login(ayarlar.token);
