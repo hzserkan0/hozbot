@@ -99,7 +99,7 @@ client.on("message", msg => {
              if (!msg.member.hasPermission("BAN_MEMBERS")) {
                   msg.delete();
                   permission:5;
-o                  return msg.reply('Küfür etmemelisin! :warning:').then(msg => msg.delete(3000));
+                 return msg.reply('Küfür etmemelisin! :warning:').then(msg => msg.delete(3000));
              }
           } catch(err) {
             console.log(err);
